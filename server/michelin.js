@@ -1,11 +1,9 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-
 const parse = data => 
 {
   const $ = cheerio.load(data);
   var tab = [];
-  //I'm gonna find all 'a' tag because the 'aria-label' part of each 'a' tag contains the restaurant's name.
   const a = $('a.link').each((i, element) => 
   {
     var temp = $(element).attr('aria-label');

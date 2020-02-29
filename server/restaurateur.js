@@ -1,7 +1,6 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-
 module.exports.scrapeMaitre = async url => 
 {
   const response = await axios(url);

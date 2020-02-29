@@ -1,6 +1,6 @@
 /* eslint-disable no-console, no-process-exit */
 const michelin = require('./michelin');
-const axios = require('D:/GitHub/bibbra/node_modules/axios');
+const axios = require('./axios');
 const restaurateur = require('./restaurateur');
 
 async function sandbox()
@@ -20,7 +20,7 @@ async function sandbox()
     var maitre = await restaurateur.scrapeMaitre('https://www.maitresrestaurateurs.fr/module/annuaire/ajax/load-maps-data');
     console.log(maitre)
 
-    //var results = listComparison(restaurant, maitre)
+    var results = listComparison(restaurant, maitre)
     console.log(results);
     console.log(results.length);
   } 
@@ -46,7 +46,33 @@ function listComparison(restaurant, maitre)
       }
     }
   }
+  WriteFile(results)
   return results;
 }
+
+function ReadFile()
+{
+	var fs = require('fs');
+	fs.readFile('./results.txt', 'utf-8', function(err, data){
+		console.log(data)
+	})
+}
+
+function WriteFile(results)
+{
+	const fs = require('fs')  
+	fs.writeFile('results.txt', "", (err) => {
+		if (err) throw err;
+	});
+	for (var i = 0; i<results.length; i++)
+	{
+		let data = results[i] + "\r\n";
+		fs.appendFile('results.txt', data, (err) => 
+		{
+			if (err) throw err;
+		});
+	}
+}
+
 
 sandbox();
